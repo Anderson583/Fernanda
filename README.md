@@ -1,2 +1,0 @@
-# Fernanda
-dia dos namorados
