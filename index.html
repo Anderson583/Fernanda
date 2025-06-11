@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Quer namorar comigo?</title>
+  <link rel="icon" href="https://emoji.gg/assets/emoji/3781_heart.png" type="image/png">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: #ffdee9;
+      background: linear-gradient(to top right, #ffdee9, #b5fffc);
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2.4rem;
+      color: #ff1493;
+      margin: 1rem;
+      animation: popIn 1.5s ease-in-out;
+    }
+
+    @keyframes popIn {
+      from { transform: scale(0.5); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .buttons {
+      display: flex;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    button {
+      padding: 1rem 2rem;
+      font-size: 1.2rem;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .yes {
+      background-color: #28a745;
+      color: white;
+      font-weight: bold;
+    }
+
+    .no {
+      background-color: #dc3545;
+      color: white;
+      font-weight: bold;
+      position: absolute;
+    }
+
+    .hearts {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .heart {
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      background: pink;
+      transform: rotate(45deg);
+      animation: floatDown 10s linear infinite;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: "";
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      background: pink;
+      border-radius: 50%;
+    }
+
+    .heart::before {
+      top: -8px;
+      left: 0;
+    }
+
+    .heart::after {
+      left: -8px;
+      top: 0;
+    }
+
+    @keyframes floatDown {
+      0% {
+        transform: translateY(-100px) rotate(45deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh) rotate(45deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="hearts"></div>
+  <h1>Fernanda, aceita namorar comigo? 💖</h1>
+  <div class="buttons">
+    <button class="yes" onclick="location.href='fernanda.html'">Claro que sim! 💘</button>
+    <button class="no" id="noBtn">Nunca!</button>
+  </div>
+
+  <script>
+    // Efeito corações caindo
+    const heartsContainer = document.querySelector('.hearts');
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.animationDuration = (Math.random() * 5 + 5) + 's';
+      heartsContainer.appendChild(heart);
+      setTimeout(() => heart.remove(), 10000);
+    }
+    setInterval(createHeart, 300);
+
+    // Botão "Não" fugindo do cursor ou do toque
+    const noBtn = document.getElementById('noBtn');
+    function moveNoButton() {
+      const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+      const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+      noBtn.style.left = `${x}px`;
+      noBtn.style.top = `${y}px`;
+    }
+
+    noBtn.addEventListener('mouseover', moveNoButton);
+    noBtn.addEventListener('touchstart', (e) => {
+      e.preventDefault();
+      moveNoButton();
+    });
+  </script>
+</body>
+</html>
